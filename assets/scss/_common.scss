@@ -1,0 +1,1806 @@
+@import "./_mixin.scss";
+
+/*********************************************/
+/*               Google Fonts                */
+/*********************************************/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,100;1,300;1,500&display=swap');
+/*********************************************/
+/*                    SCSS                   */
+/*********************************************/
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium",
+    "游ゴシック", "Yu Gothic", "Noto Sans JP", sans-serif;
+  overflow-x: hidden;
+  
+  &.open{
+    overflow: hidden;
+  }
+}
+.for {
+  &Sp {
+    display: none;
+  }
+  &Pc {
+    display: block;
+  }
+}
+html {
+  font-size: 62.5%;
+}
+$breakpoints:(
+  'sp2':'screen and (max-width:600px)',
+  'sp1':'screen and (max-width:768px)',
+  'md':'screen and (max-width:1000px)',
+  'md900':'screen and (max-width:900px)',
+  'lg1200':'screen and (max-width:1200px)',
+) !default;
+
+@mixin mq($breakpoint: sp1) {
+  @media #{map-get($breakpoints,$breakpoint)}{
+    @content;
+  }
+}
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints,$breakpoint)}{
+    @content;
+  }
+}
+@mixin mq($breakpoint: md900) {
+  @media #{map-get($breakpoints,$breakpoint)}{
+    @content;
+  }
+}
+@mixin mq($breakpoint: lg1200) {
+  @media #{map-get($breakpoints,$breakpoint)}{
+    @content;
+  }
+}
+@mixin mq($breakpoint: sp2) {
+  @media #{map-get($breakpoints,$breakpoint)}{
+    @content;
+  }
+}
+/*********************************/
+/*            PC Base            */
+/*********************************/
+.loader{
+  position: fixed;
+  z-index: 500;
+  background-color: #fff;
+  width: 100%;
+  height: 100vh;
+
+  &.none{
+    opacity: 0;
+    z-index: -100;
+    transition: 0.8s;
+  }
+  &-spinner{
+    position: absolute;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 70px;
+    height: 80px;
+    overflow: hidden;
+    padding-top: 5px;
+
+    &__box{
+      width: 40px;
+      height: 40px;
+      background-color: #6CCDC5;
+      animation: loader 1.2s ease-in 0s infinite ;
+      margin: 0 auto;
+
+      &.recruit{
+        background-color: inherit;
+        background: linear-gradient(to right,#FEEAB9,#D9F9F7);
+      }
+      @keyframes loader {
+        0%{
+          transform: perspective(120px) rotateX(0) rotateY(0);
+        }
+        50%{
+          transform: perspective(120px) rotateX(-180deg) rotateY(0);
+        }
+        100%{
+          transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+        }
+      }
+    }
+    &__text{
+      font-family: 'Poppins', sans-serif;
+      font-style: italic;
+      left: 0;
+      font-size: 1.4rem;
+      position: absolute;
+      margin-top: 1.5rem;
+      letter-spacing: 0.04em;
+      margin-left: 0.5rem;
+      
+      @media (min-width:1500px) {
+        margin-left: 0;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
+.header {
+
+  &-left{
+    position: fixed;
+    width: 10rem;
+    background-color: #fff;
+    height: 100vh;
+    text-align: center;
+    top: 0;
+    left: 0;
+    z-index: 25;
+    @include mq(sp1){
+      height: 6rem;
+      width: 100%;
+      text-align: inherit;
+      padding-left: 3.5%;
+    }
+
+    &__link{
+      &--logo{
+        width: 5rem;
+        height: 5rem;
+        transition: 0.4s;
+        margin-top: 1rem;
+
+        @include mq(sp1){
+          margin-top: 0.7rem;
+        }
+        &:hover{
+          opacity: 0.5;
+          transition: 0.4s;
+        }
+      }
+    }
+  }
+  &-hb{
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: #000000;
+    height: 7rem;
+    width: 7rem;
+    box-sizing: border-box;
+    padding: 2.7rem 2.5rem; 
+    z-index: 30;
+    cursor: pointer;
+
+    @include mq(sp1){
+      height: 6rem;
+      width: 6rem;
+      padding: 2.2rem 2rem; 
+    }
+    &__bar1{
+      background-color: #fff;
+      height: 0.1rem;
+      width: 2.3rem;
+      display: block;
+      border-radius: 0.75rem;
+      transition: 0.4s;
+      cursor: pointer;
+
+      &.action{
+        transform: rotate(-45deg) translateY(0.35rem) translateX(-0.45rem);
+        transition: 0.4s;
+      }
+    }
+    &__bar2{
+      background-color: #fff;
+      height: 0.1rem;
+      width: 1.18rem;
+      display: block;
+      margin-top: 1rem;
+      border-radius: 0.1rem;
+      transition: 0.4s;
+
+      &.hover{
+        width: 2.3rem;
+        transition: 0.3s;
+      }
+
+      &.action{
+        width: 2.3rem;
+        transform: rotate(45deg) translateY(-0.35rem) translateX(-0.45rem);
+        transition: 0.4s;
+      }
+    }
+  }
+  &-open{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    background-color: #6CCDC5;
+    z-index: 20;
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    overflow: auto;
+    max-height: 100vh;
+    top: 0;
+
+    @include mq(md){
+      display: block;
+    }
+    &.open{
+      opacity: 1;
+      pointer-events: initial;
+      transition: 0.3s;
+    }
+    &__img{
+      width: 50%;
+      padding-left: 5rem;
+
+      @include mq(md){
+        &.forPc{
+          display: none;
+        }
+      }
+    }
+    &-content{
+      width: 50%;
+      font-family: 'Poppins', sans-serif;
+      font-style: italic;
+      font-weight: 300;
+      position: relative;
+      padding-bottom: 10rem;
+
+      @include mq(md){
+        width: fit-content;
+        margin:  0 auto;
+      }
+      &-menu{
+        width: 17rem;
+        margin: 9rem auto 0 auto;
+        height: fit-content;
+
+
+      @include mq(md){
+        margin-top: 8.5rem;
+      }
+        li{
+          &:nth-child(1){
+            & .header-open-content-menu__link{
+              &::after{
+                content: "お知らせ";
+              }
+            }
+          }
+          &:nth-child(2){
+            & .header-open-content-menu__link{
+              &::after{
+                content: "メッセージ";
+              }
+            }
+          }
+          &:nth-child(3){
+            & .header-open-content-menu__link{
+              &::after{
+                content: "会社概要";
+                bottom: 2.5rem;
+                right: -8rem;
+
+                @include mq(md){
+                  right: -7rem;
+                }
+              }
+            }
+          }
+          &:nth-child(4){
+            & .header-open-content-menu__link{
+              &::after{
+                content: "サービス";
+                right: -9rem;
+
+                @include mq(md){
+                  right: -8rem;
+                }
+              }
+            }
+          }
+          &:nth-child(5){
+            & .header-open-content-menu__link{
+              &::after{
+                content: "自社ブログ";
+              }
+            }
+          }
+        }
+        &__link{
+          color: #fff;
+          font-size: 3.2rem;
+          letter-spacing: 0.04em;
+          line-height: 1.12;
+          margin-top: 4rem;
+          display: inline-block;
+          transition: 0.4s;
+          position: relative;
+          height: fit-content;
+
+          &::after{
+            content: "";
+            color: #000;
+            position: absolute;
+            font-size: 1.4rem;
+            right: -10rem;
+            bottom: 1.1rem;
+            opacity: 0;
+            transition: 0.4s;
+            letter-spacing: 0.04em;
+
+            @include mq(md){
+              right: -9rem;
+            }
+          }
+          &:hover{
+            color: #000000;
+            transition: 0.4s;
+
+            &::after{
+              @include mq(md){
+                display: none;
+              }
+              opacity: 1;
+              transition: 0.4s;
+            }
+          }
+        }
+      }
+      & .button{
+        margin: 0 auto;
+        font-style: normal;
+
+        &--recruit{
+          margin-bottom: 1.5rem;
+          margin-top: 6.5rem;
+        }
+      }
+    }
+  }
+  &__entry{
+    background-color: #000;
+    color: #fff;
+    position: fixed;
+    right: 7.1rem;
+    line-height: 7rem;
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    font-weight: bold;
+    z-index: 30;
+    padding-left: 3rem;
+    box-sizing: 20rem;
+    width: 14rem;
+
+    @include mq(sp1){
+      width: 11rem;
+      line-height: 6rem;
+      right: 6.1rem;
+      font-size: 1.3rem;
+    }
+    &--arrow{
+      position: absolute;
+      width: 2.5rem;
+      height: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 3.5rem;
+      transition: 0.3s;
+      margin-top: 0 !important;
+
+      @include mq(sp1){
+        height: 2rem;
+        width: 2rem;
+        right: 2rem;
+      }
+      &.hover{
+        right: 2.5rem;
+        transition: 0.3s;
+
+        @include mq(sp1){
+          right: 2rem;
+        }
+      }
+    }
+  }
+}
+.button{
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-size: 1.4rem;
+  background-color: #ECFF15;
+  width: 18.5rem;
+  line-height: 3.7rem;
+  padding-left: 2.3rem;
+  color: #000;
+  position: relative;
+  box-shadow: 2px 2px 0px #626262;
+
+  &::after{
+    content: "";
+    position: absolute;
+    background-color: #000000;
+    width: 5rem;
+    height: 0.1rem;
+    top: 49%;
+    left: 14rem;
+    opacity: 1;
+  }
+  &::before{
+    content: "";
+    position: absolute;
+    background-color: #000000;
+    width: 0rem;
+    height: 0.1rem;
+    left: 14rem;
+    top: 49%;
+    transition: 0.1s;
+    opacity: 1;
+
+    @include mq(md){
+      opacity: 0;
+    }
+  }
+  &:hover{
+    box-shadow: none;
+    transform: translate(1px,1px);
+    &::after{
+      @include mq(md){
+        opacity: 1;
+      }
+      opacity: 0;
+      transition: 0.1s;
+    }
+    &::before{
+      width: 5rem;
+      transition: 0.6s;
+      transition-timing-function: ease-out;
+      transition-delay: 0.2s;
+    }
+  }
+}
+.button2{
+  background-color: #000;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  line-height: 4.1rem;
+  box-sizing: border-box !important;
+  height: 4.1rem;
+  border-radius: 2.05rem;
+  position: relative;
+  padding-left: 2.6rem;
+  padding-right: 5.5rem;
+  display: inline-block;
+
+  @include mq(sp1){
+    font-size: 1.1rem;
+    line-height: 3.4rem;
+    border-radius: 1.7rem;
+    padding-right: 4.5rem;
+    height: 3.4rem;
+    padding-left: 2rem;
+  }
+  &::after{
+    content: "";
+    height: 3rem;
+    width: 3rem;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+
+    @include mq(sp1){
+      height: 2.5rem;
+      width: 2.5rem;
+      top: 0.4rem;
+    }
+  }
+  &__arrow{
+    width: 1.9rem;
+    display: block;
+    height: 3rem;
+    position: absolute;
+    top: 0.5rem;
+    right: 1.6rem;
+    z-index: 15;
+    overflow: hidden;
+
+    @include mq(sp1){
+      right: 1.3rem;
+      top: 0.3rem;
+    }
+    &::before{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+
+      @include mq(sp1){
+        transform: translateY(-50%) scale(0.7);
+      }
+    }
+    &::after{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      @include mq(sp1){
+        transform: translateY(-50%) scale(0.7);
+      }
+      right: 2rem;
+    }
+    &.hover{
+      &::before{
+        opacity: 0;
+        transition: 0.2s;
+
+        @include mq(sp1){
+          opacity: 1;
+        }
+      }
+      &::after{
+        right: 0;
+        transition: 0.8s;
+        transition-delay: 0.2s;
+
+        @include mq(sp1){
+          right: 2rem;
+        }
+      }
+    }
+  }
+}
+.side{
+  border-top: #000 solid 0.2rem;
+  border-bottom: #000 solid 0.2rem;
+  height: fit-content;
+  width: 23rem;
+  flex-shrink: 0;
+
+  @include mq(md){
+    width: 100%;
+    margin: 0 auto 10rem auto;
+    max-width: 60rem;
+  }
+  &-category{
+    border-bottom: #000 solid 0.2rem;
+    padding-bottom: 0.6rem;
+
+    &__title{
+      font-weight: bold;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      padding: 2.4rem 0 2.8rem 0;
+    }
+    &__tag{
+      transition: 0.3s;
+      margin-bottom: 1.8rem;
+
+      @include mq(md){
+        display: inline-block !important;
+        margin-right: 1.5rem;
+      }
+      &:hover{
+        opacity: 0.5;
+        transition: 0.3s;
+      }
+    }
+  }
+  &-new{
+    &__title{
+      font-weight: bold;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      padding: 2.4rem 0 2.8rem 0;
+    }
+    &__topic{
+      display: block;
+      position: relative;
+      letter-spacing: 0.08em;
+      font-size: 1.4rem;
+      line-height: 1.3;
+      margin-bottom: 3rem;
+      transition: 0.3s;
+
+      &:hover{
+        opacity: 0.5;
+        transition: 0.3s;
+      }
+      &::after{
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+.tag{
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: bold;
+  background-color: #6CCDC5;
+  width: fit-content;
+  display: block;
+  line-height: 2.2rem;
+  padding: 0 3rem;
+  border-radius: 1.1rem;
+  letter-spacing: 0.02em;
+}
+.tag2{
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background-color: #000;
+  display: inline-block;
+  padding: 0 1.4em;
+  line-height: 2.2rem;
+  border-radius: 1.1rem;
+  vertical-align: middle;
+  height: 2.3rem;
+}
+.subTop{
+  &::after{
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 0.1rem;
+    background-color: #fff;
+    bottom: 7rem;
+
+    @include mq(sp1){
+      bottom: 6rem;
+    }
+  }
+  &.show{
+    &::after{
+      width: 100%;
+      transition: 1s;
+      transition-delay: 0.3s;
+      transition-timing-function: ease-out;
+    }
+  }
+}
+.top{
+  height: 34.3rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 11rem;
+  padding-left: 10rem;
+  background-color: #6CCDC5;
+  position: relative;
+
+  @include mq(sp1){
+    padding-left: 0;
+    height: 36rem;
+    padding-top: 16rem;
+  }
+  & .container{
+    width: 90%;
+    max-width: 103rem;
+    margin: 0 auto;
+
+    @include mq(sp1){
+     width: 93%;
+     max-width: 50rem;
+    }
+  }
+}
+.titleContent{
+  &__en{
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 4rem;
+    letter-spacing: 0.04em;
+    margin-right: 2rem;
+    line-height: 1.1;
+
+    @include mq(sp1){
+      display: block;
+      font-size: 3.6rem;
+    }
+  }
+  &__ja{
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+
+    @include mq(sp1){
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+  }
+}
+.titleTop{
+  position: relative;
+  z-index: 10;
+  background-color: #fff;
+  width: fit-content;
+  padding: 1.4rem 2.4rem 1.4rem 2rem;
+  position: relative;
+  overflow: hidden;
+  
+  @include mq(sp1){
+    padding: 1.1rem 2rem;
+  }
+  &::before{
+    content: "";
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    transition-timing-function: ease-out;
+  }
+  &::after{
+    content: "";
+    background-color: #6CCDC5;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    transition-timing-function: ease-out;
+  }
+  &.show{
+    &::after{
+      transform: translateX(100%);
+      transition: 0.6s;
+      transition-delay: 0.3s;
+    }
+    &::before{
+      transform: translateX(100%);
+      transition: 0.6s;
+      transition-delay: 0.9s;
+    }
+  }
+  &__en{
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 4.7rem;
+    letter-spacing: 0.04em;
+    margin-right: 2rem;
+
+    @include mq(sp1){
+      font-size: 3.6rem;
+      margin-right: 1rem;
+    }
+    &.forSp{
+      display: none;
+      
+      @include mq(sp1){
+        display: inline-block;
+      }
+    }
+  }
+  &__ja{
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+
+    @include mq(sp1){
+      font-size: 1.2rem;
+    }
+  }
+}
+.title{
+  @include mq(sp1){
+    text-align: left;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  &__en{
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 6rem;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    margin-right: 2rem;
+
+    @include mq(sp1){
+      font-size: 4.8rem;
+      margin-right: 0;
+      display: block;
+    }
+  }
+  &__ja{
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+
+    @include mq(sp1){
+      position: relative;
+      bottom: 0.7rem;
+    }
+  }
+}
+.thanks-message{
+  padding-left: 10rem;
+  box-sizing: border-box;
+  margin-top: 10rem;
+
+  @include mq(sp1){
+    padding-left: 0;
+  }
+  & .container{
+    max-width: 103rem;
+    width: 90%;
+    margin: 0rem auto;
+    text-align: center;
+
+    @include mq(sp1){
+      width: 93%;
+      max-width: 52rem;
+    }
+  }
+  &__title{
+    font-weight: bold;
+    font-size: 2.8rem;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+
+    @include mq(sp1){
+      font-size: 2.1rem;
+    }
+  }
+  &__text{
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    margin-top: 3.5rem;
+
+    @include mq(sp1){
+      margin-top: 4rem;
+    }
+  }
+}
+.thanks-box{
+  padding-left: 10rem;
+  box-sizing: border-box;
+  margin-top: 4.5rem;
+  padding-bottom: 16rem;
+
+  @include mq(sp1){
+    margin-top: 4rem;
+    padding-left: 0;
+  }
+  & .container{
+    max-width: 103rem;
+    width: 90%;
+    margin: 0rem auto;
+    background-color: #F2F2F2;
+    box-sizing: border-box;
+    padding: 3.2rem 4.8rem 4.2rem 4.8rem;
+    position: relative;
+
+    @include mq(sp1){
+      width: 93%;
+      max-width: 52rem;
+      padding: 3rem 2rem 4.4rem 2rem;
+    }
+  }
+  &__text1{
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    margin-bottom: 2.3rem;
+
+    @include mq(sp1){
+      margin-bottom: 3rem;
+    }
+    span{
+      position: relative;
+      left: 2rem;
+      width: 95%;
+      display: inline-block;
+
+      &::before{
+        content: "・";
+        position: absolute;
+        left: -2rem;
+      }
+    }
+  }
+  &__text2{
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    font-weight: bold;
+    margin-bottom: 3.5rem;
+    line-height: 1.5;
+
+    @include mq(sp1){
+      margin-bottom: 4.4rem;
+    }
+    span{
+      position: relative;
+      border-bottom: solid 0.5rem #6CCDC5;
+    }
+  }
+  & .button{
+    width: 24.6rem;
+
+    &::before{
+      left: 21rem;
+    }
+    &::after{
+      left: 21rem;
+    }
+  }
+  &__toTop{
+    position: absolute;
+    left: 4.8rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #707070;
+    letter-spacing: 0.08em;
+    bottom: -5rem;
+    transition: 0.3s;
+
+    &:hover{
+      opacity: 0.5;
+      transition: 0.3s;
+    }
+    @include mq(sp1){
+      left: 2rem;
+    }
+  }
+  & .button2{
+    font-size: 1.4rem;
+    line-height: 4.1rem;
+    height: 4.1rem;
+    border-radius: 20.5rem;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    
+    &::after{
+      width: 3rem;
+      height: 3rem;
+      top: 0.5rem;
+    }
+    &__arrow{
+      top: 0.5rem;
+      right: 1.6rem;
+
+      &::before{
+        transform: translateY(-50%);
+      }
+      &::after{
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+.form{
+  & .submitComtainer{
+    position: relative;
+    z-index: 0;
+    width: fit-content;
+    margin: 0 auto;
+
+    &::after{
+      content: "";
+      position: absolute;
+      background-color: #000000;
+      width: 5rem;
+      height: 0.1rem;
+      top: 49%;
+      left: 12rem;
+      opacity: 1;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      background-color: #000000;
+      width: 0rem;
+      height: 0.1rem;
+      left: 12rem;
+      top: 49%;
+      transition: 0.1s;
+      opacity: 1;
+      z-index: 10;
+    }
+    &:hover{
+      &::after{
+        opacity: 0;
+        transition: 0.1s;
+      }
+      &::before{
+        width: 5rem;
+        transition: 0.6s;
+        transition-timing-function: ease-out;
+        transition-delay: 0.2s;
+      }
+    }
+  }
+  &__submit{
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 0px;
+  }
+  &__button{
+    font-size: 1.4rem;
+    color: #707070;
+    font-weight: bold;
+    text-align: center;
+    margin: 5rem auto;
+    letter-spacing: 0.08em;
+
+    @include mq(sp1){
+      margin-top: 3rem;
+      margin-bottom: 4.5rem;
+    }
+    &--link{
+      color: #707070;
+      border-bottom: #707070 solid 0.1rem;
+      padding-bottom: 0rem;
+      transition: 0.3s;
+
+      &:hover{
+        opacity: 0.5;
+        transition: 0.3s;
+      }
+    }
+  }
+    /* 元々のチェックボックス（非表示） */
+    &__button input[type="checkbox"] {
+      display: none;
+      appearance: initial;
+    }
+    /* チェックボックスの代わりを成すラベル */
+    &__button input[type="checkbox"] + label {
+      display: none;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      padding-left: 1.9rem;
+      line-height: 1.6;
+    }
+    /* ラベルの左に表示させる正方形のボックス□ */
+    &__button input[type="checkbox"] + label::before {
+      content: "";
+      position: absolute;
+      display: block;
+      box-sizing: border-box;
+      width: 12px;
+      height: 13px;
+      top: 5px;
+      left: 0;
+      border: 1px solid #000;
+    }
+    /* チェックが入った時のレ点 */
+    &__button input[type="checkbox"]:checked + label::after {
+      content: "";
+      position: absolute;
+      display: block;
+      box-sizing: border-box;
+      width: 11px;
+      height: 6px;
+      margin-top: -4px;
+      top: 10px;
+      left: 1px;
+      transform: rotate(-45deg);
+      border-bottom: 2px solid;
+      border-left: 2px solid;
+      border-color: #707070; /* チェックの色変更 お好きな色を */
+    }
+  &-wrapper{
+    display: flex;
+    margin-bottom: 2rem;
+    width: 100%;
+
+    @include mq(sp1){
+      display: block;
+      margin-bottom: 3rem;
+    }
+    label{
+      width: 65%;
+
+      @include mq(sp1){
+        width: 100%;
+      }
+    }
+    & .labelSelect{
+      width: 23.4rem;
+      position: relative;
+
+      &::after{
+        content: "";
+        position: absolute;
+        border-left: solid #000 0.2rem;
+        border-bottom: solid #000 0.2rem;
+        width: 0.7rem;
+        height: 0.7rem;
+        z-index: 10;
+        transform: translateY(-49%) rotate(-45deg);
+        right: 1.4rem;
+        top: 49%;
+      }
+    }
+    & .labelName{
+      display: flex;
+      justify-content: space-between;
+
+      @include mq(sp1){
+        display: block;
+      }
+    }
+    & .labelTel{
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+
+      &::before{
+        content: "ー";
+        position: absolute;
+        left: 31.5%;
+        top: 36%;
+      }
+      &::after{
+        content: "ー";
+        position: absolute;
+        right: 31.5%;
+        top: 36%;
+      }
+    }
+    &__name{
+      width: 35%;
+      letter-spacing: 0.08em;
+      font-size: 1.4rem;
+      font-weight: bold;
+      line-height: 1.4;
+      padding-top: 1.4rem;
+      padding: 1.4rem;
+      box-sizing: border-box;
+
+      @include mq(sp1){
+        padding: 0;
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+      &.red{
+        &::after{
+          content: "*";
+          color: #F15D23;
+          margin-left: 0.7rem;
+        }
+      }
+    }
+    &__select{
+      background-color: #F0F0F0;
+      border: none;
+      letter-spacing: 0.08em;
+      font-size: 1.4rem;
+      line-height: 1.4;
+      padding: 1.4rem 0rem 1.4rem 2.3rem;
+      box-sizing: border-box;
+      cursor: pointer;
+      appearance: none;
+      width: 100%;
+      border-radius: 0px;
+    }
+    &__input{
+      width: 100%;
+      appearance: none;
+      border: none;
+      background-color: #F0F0F0;
+      padding: 1.4rem 2.4rem;
+      box-sizing: border-box;
+      border-radius: 0px;
+
+      &::placeholder{
+        color: #BDBFC4;
+      }
+      &.name{
+        width: 49%;
+        height: fit-content;
+
+        @include mq(sp1){
+          width: 100%;
+
+          &:first-child{
+            margin-bottom: 0.8rem;
+          }
+        }
+      }
+      &.tel{
+        height: fit-content;
+        width: 30%;
+      }
+    }
+  }
+  &-privacy{
+    background-color: #4B4B4B;
+    color: #fff;
+    width: 50rem;
+    height: 26rem;
+    margin: 5rem auto 0 auto;
+    overflow: scroll;
+    padding: 1.7rem 1.7rem 1.7rem 2.6rem;
+    box-sizing: border-box;
+
+    @include mq(sp1){
+      width: 100%;
+    }
+    &__text{
+      font-size: 1.2rem;
+      line-height: 1.66;
+      letter-spacing: 0.08em;
+    }
+  }
+}
+.page{
+  width: fit-content;
+  margin: 5rem auto 10rem auto;
+  height: 2.6rem;
+  font-size: 0;
+
+  @include mq(sp1){
+    margin-top: 6rem;
+  }
+  &__arrow{
+    height: 100%;
+    display: inline-block;
+    width: 3.3rem;
+    position: relative;
+
+    @include mq(sp1){
+      width: 8.7rem;
+    }
+    &.next{
+      &::before{
+        transform: translateY(-50%) rotate(-135deg);
+        right: 0;
+      }
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      height: 0.7rem;
+      width: 0.7rem;
+      border-left: solid 0.3rem #CCCCCC;
+      border-bottom: solid 0.3rem #CCCCCC;
+      transform: translateY(-50%) rotate(45deg);
+      top: 50%;
+      border-radius: 0.2rem;
+      transition: 0.3s;
+
+      @include mq(sp1){
+        border-left: solid 0.3rem #000;
+        border-bottom: solid 0.3rem #000;
+      }
+    }
+    &:hover{
+      &::before{
+        border-left: solid 0.3rem #000;
+        border-bottom: solid 0.3rem #000;
+        transition: 0.3s;
+      }
+    }
+  }
+  &__number{
+    width: 3.3rem;
+    display: inline-block;
+    line-height: 2.6rem;
+    vertical-align: top;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #CCCCCC;
+    border-bottom: solid #CCCCCC 0.18rem;
+    transition: 0.3s;
+
+    @include mq(sp1){
+      font-size: 1.5rem;
+      width: 3.8rem;
+    }
+    &.now{
+      color: #000;
+      border-bottom: solid #000 0.18rem;
+    }
+    &:hover{
+      color: #000;
+      border-bottom: solid #000 0.18rem;
+      transition: 0.3s;
+    }
+  }
+}
+.main{
+  padding-left: 10rem;
+  box-sizing: border-box;
+  padding-bottom: 10rem;
+
+  @include mq(sp1){
+    padding-left: 0;
+  }
+  & .container{
+    max-width: 103rem;
+    width: 90%;
+    margin: 0rem auto;
+
+    @include mq(sp1){
+      width: 93%;
+      max-width: 50rem;
+    }
+  }
+
+  &__title{
+    letter-spacing: 0.08em;
+    font-size: 2.8rem;
+    font-weight: bold;
+    list-style: 1.35;
+    margin-bottom: 9rem;
+    position: relative;
+    margin-top: 10rem;
+    line-height: 1.4;
+
+    @include mq(sp1){
+      margin-top: 8.5rem;
+      font-size: 2.4rem;
+    }
+    &::after{
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 0.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #707070;
+      bottom: -5rem;
+    }
+  }
+  &__text{
+    font-size: 1.4rem;
+    line-height: 1.7;
+    letter-spacing: 0.08em;
+    margin-top: 4rem;
+  }
+  &__subTitle{
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    margin-top: 6rem;
+    margin-bottom: 4rem;
+
+    @include mq(sp1){
+      margin-top: 4rem;
+    }
+  }
+  &__img{
+    margin-top: 4rem;
+    width: 100%;
+  }
+}
+.footer{
+  padding-left: 10rem;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+
+  @include mq(sp1){
+    padding-left: 0;
+  }
+  &-contact{
+    background-color: #E6E6E6;
+    padding-bottom: 4rem;
+    position: relative;
+
+    @include mq(sp1){
+      padding-bottom: 5rem;
+    }
+    &::before{
+      content: "";
+      background-color: #6CCDC5;
+      width: 100%;
+      height: 10rem;
+      position: absolute;
+    }
+    & .container{
+      max-width: 103rem;
+      width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+
+      @include mq(sp1){
+        width: 93%;
+        max-width: 50rem;
+      }
+      &::after{
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 0.1rem;
+        background-color: #707070;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 7.1rem;
+
+        @include mq(sp1){bottom: 8.4rem;
+        }
+      }
+    }
+    & .title{
+      padding-top: 5rem;
+      margin-bottom: 1.5rem;
+
+      @include mq(sp1){
+        padding-top: 6.3rem;
+        margin-bottom: 3rem;
+      }
+    }
+    &__text{
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+    }
+    & .button{
+      margin: 8rem auto 0 auto;
+      text-align: initial;
+      font-style: normal;
+    }
+  }
+  &-menu{
+    background-color: #6CCDC5;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    @include mq(sp1){
+      padding-top: 3rem;
+      padding-bottom: 6rem;
+    }
+    & .container{
+      max-width: 103rem;
+      width: 90%;
+      margin: 0 auto;
+      position: relative;
+
+      @include mq(sp1){
+        width: 93%;
+        max-width: 50rem;
+      }
+      &::before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 0.1rem;
+        background-color: #000;
+        top: 3.1rem;
+
+        @include mq(sp1){
+          display: none;
+        }
+      }
+    }
+    &-content{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      margin-bottom: 5rem;
+
+      @include mq(sp1){
+        display: block;
+      }
+      &-list{
+        @include mq(sp1){
+          border-bottom: #000 solid 0.1rem;
+          padding-bottom: 2rem;
+          margin-top: 3rem;
+          position: relative;
+        }
+        & .open{
+          max-height: 0vh;
+          overflow: hidden;
+          transition: 0.4s;
+
+          &.show{
+            max-height: 100vh;
+            max-height: 50rem;
+            transition: 0.7s;
+          }
+        }
+        &__main{
+          display: block;
+          font-size: 1.4rem;
+          transition: 0.2s;
+          margin-bottom: 3.6rem;
+          letter-spacing: 0.04em;
+
+          @include mq(sp1){
+            margin-bottom: 0;
+          }
+          &:hover{
+            opacity: 0.5;
+            transition: 0.2s;
+
+            @include mq(sp1){
+              opacity: 1;
+            }
+          }
+          &.footer-open{
+            &::before{
+              content: "";
+              background-color: #000;
+              height: 2rem;
+              width: 0.1rem;
+              position: absolute;
+              right: 1.5rem;
+              top: 0;
+              opacity: 1;
+              transition: 0.2s;
+            }
+            &::after{
+              content: "";
+              background-color: #000;
+              width: 2rem;
+              height: 0.1rem;
+              position: absolute;
+              right: 0.6rem;
+              top: 0.9rem;
+            }
+            &.show{
+              &::before{
+                opacity: 0;
+                transition: 0.2s;
+              }
+            }
+          }
+        }
+        &__sub{
+          display: block;
+          font-size: 1.2rem;
+          line-height: 1.66;
+          margin-bottom: 0.7rem;
+          position: relative;
+          left: 2rem;
+          letter-spacing: 0.04em;
+
+          @include mq(sp1){
+            &:nth-child(1){
+              margin-top: 2rem;
+            }
+          }
+          &::before{
+            content: "ー";
+            position: absolute;
+            left: -2rem;
+          }
+          &:hover{
+            opacity: 0.5;
+            transition: 0.2s;
+          }
+        }
+      }
+    }
+    & .button{
+      display: inline-block;
+      margin-right: 1rem;
+      font-style: normal;
+
+      @include mq(sp1){
+        display: block;
+        margin-top: 1.5rem;
+      }
+    }
+  }
+  &-end{
+    background-color: #fff;
+    width: 100%;
+    height: 7rem;
+    position: relative;
+
+    @include mq(md){
+      height: auto;
+      position: inherit;
+      text-align: center;
+    }
+    &__logo{
+      position: absolute;
+      width: 11.8rem;
+      height: fit-content;
+      object-fit: contain;
+      top: 1.7rem;
+      transition: 0.3s;
+      z-index: 10;
+      display: block;
+      
+      @include mq(md){
+        width: 16.5rem;
+        position: inherit;
+        margin: 6rem auto 6rem auto;
+      }
+      &:hover{
+        opacity: 0.5;
+        transition: 0.3s;
+      }
+    }
+    &__img{
+      margin-top: 0 !important;
+    }
+    & .container{
+      max-width: 103rem;
+      width: 90%;
+      margin: 0 auto;
+      position: relative;
+      display: block;
+
+      @include mq(md){
+        width: 93%;
+      }
+    }
+    &__copy{
+      width: fit-content;
+      display: block;
+      line-height: 7rem;
+      margin: 0 auto;
+      font-size: 1.2rem;
+
+      @include mq(md){
+        line-height: 1.6;
+        margin: 5rem auto 4rem auto;
+        font-size: 1.1rem;
+      }
+    }
+    &__link{
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+
+      @include mq(md){
+        position: relative;
+        width: fit-content;
+        margin: 0 auto;
+        top: inherit;
+        transform: none;
+      }
+      &::before{
+        content: "|";
+        position: absolute;
+        right: 8.1rem;
+      }
+      &--policy{
+        display: inline-block;
+        margin-right: 2rem;
+        transition: 0.3s;
+
+        &:hover{
+          opacity: 0.5;
+          transition: 0.3s;
+        }
+      }
+      &--sitemap{
+        display: inline-block;
+        transition: 0.3s;
+      
+        &:hover{
+          opacity: 0.5;
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+}
+.footerRecruit{
+  padding-left: 19rem;
+  box-sizing: border-box;
+  border-top: solid 0.1rem #707070;
+
+  & .container{
+    max-width: 103rem;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 10rem;
+    padding-bottom: 3rem;
+    text-align: center;
+  }
+  &__toTop{
+    font-size: 1.9rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    line-height: 2.8rem;
+    display: inline-block;
+    right: 2.5rem;
+    position: relative;
+
+    &::after{
+      position: absolute;
+      right: -5.5rem;
+      transition: 0.3s;
+    }
+    &:hover{
+      &::after{
+        right: -6.5rem;
+        transition: 0.3s;
+      }
+    }
+  }
+  &__copy{
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+  &__policy{
+    font-size: 1.2rem;
+    transition: 0.3s;
+
+    &:hover{
+      opacity: 0.5;
+      transition: 0.3s;
+    }
+  }
+}
+/*********************************/
+/*         PC Responsive         */
+/*********************************/
+@media (min-width:1500px) {
+  html {
+    font-size: 12px;
+  }
+  .button2{
+    &__arrow{
+      &::after{
+        top: 55%;
+        transform: translateY(-55%);
+      }
+      &.hover{
+        &::after{
+          right: 0.2rem;
+        }
+      }
+      &::before{
+        top: 55%;
+        transform: translateY(-55%);
+        right: 0.2rem;
+      }
+    }
+  }
+}
+
+/*********************************/
+/*               SP              */
+/*********************************/
+.forSp{
+  @include mq(sp1){
+    display: block;
+  }
+}
+.forPc{
+  @include mq(sp1){
+    display: none;
+  }
+}

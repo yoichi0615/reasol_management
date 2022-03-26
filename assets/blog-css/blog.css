@@ -1,0 +1,17 @@
+.detail .detail-content > * {
+  font-size: 1.4rem;
+  margin-top: 2rem;
+}
+.detail-content .has-background {
+  padding: 0.2em 1em;
+  box-sizing: border-box;
+}
+
+.detail .detail-content table * {
+  border: 1px solid #d8d8d8;
+}
+
+.detail .detail-content .wp-block-table td,
+.detail .detail-content .wp-block-table th {
+  border-color: #d8d8d8;
+}
